@@ -43,7 +43,7 @@ const SearchPage = () => {
               addonBefore={searchTerms}
               placeholder="start typing to search..."
               size="large"
-              style={{ minWidth: "75vh", textAlign: "center" }}
+              style={{ minWidth: "50vw", textAlign: "center" }}
               onChange={e => handleQueryChange(e)}
             />
           </Form.Item>
