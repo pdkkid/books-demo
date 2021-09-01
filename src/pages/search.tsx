@@ -1,6 +1,7 @@
 import { Divider, Input, Space, Form, Empty, Select } from "antd";
 import { ChangeEvent, Fragment, useState } from "react";
 import { BookSearch } from "../api/base";
+import useDebounce from "../hooks/debounce";
 import BookList from "../components/book-list";
 const { Option } = Select;
 
@@ -8,7 +9,9 @@ const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState("intitle");
   const [searchValue, setSearchValue] = useState("");
 
-  const { data, error } = BookSearch(searchValue, searchTerm);
+  const debouncedSearchValue = useDebounce(searchValue, 500);
+
+  const { data, error } = BookSearch(debouncedSearchValue, searchTerm);
 
   const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
