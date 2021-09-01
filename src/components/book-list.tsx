@@ -2,13 +2,9 @@ import { IBook } from "../api/base.types";
 import { Card, Space } from "antd";
 import { HeartOutlined } from "@ant-design/icons";
 import Truncate from "react-truncate";
-type BookListProps = {
-  books: IBook[] | undefined;
-};
+const { Meta } = Card;
 
-const BookList = ({ books }: BookListProps) => {
-  const { Meta } = Card;
-
+const BookList = ({ books }: { books: IBook[] | undefined }) => {
   return (
     <Space
       size={[12, 16]}
@@ -21,8 +17,9 @@ const BookList = ({ books }: BookListProps) => {
           <Card
             key={book.id}
             extra={<HeartOutlined onClick={() => {}} />}
-            title={book.volumeInfo.title}
-            style={{ width: 225 }}
+            title={<Truncate lines={2}>{book.volumeInfo.title}</Truncate>}
+            headStyle={{ textAlign: "center" }}
+            style={{ width: 225, flex: 1 }}
             type="inner"
             hoverable
             cover={
