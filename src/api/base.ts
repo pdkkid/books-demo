@@ -3,24 +3,18 @@ import { IError, ISearchResults } from "./base.types";
 
 const apiBase = "https://www.googleapis.com/books/v1/volumes";
 
-export const BookSearch = ({
-  search,
-  term,
-}: {
-  search: string;
-  term: string;
-}) => {
+export const BookSearch = (value: string, term: string) => {
   const [data, setData] = useState<ISearchResults>();
   const [error, setError] = useState<IError>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (search === "") {
+    if (value === "") {
       return;
     }
     (async () => {
       try {
-        const res = await fetch(`${apiBase}?q=${search}+${term}&maxResults=40`);
+        const res = await fetch(`${apiBase}?q=${value}+${term}&maxResults=40`);
         const resJson = await res.json();
         setData(resJson);
       } catch (err) {
@@ -29,6 +23,6 @@ export const BookSearch = ({
         setLoading(false);
       }
     })();
-  }, [search, term]);
+  }, [value, term]);
   return { loading, data, error };
 };
