@@ -2,30 +2,21 @@ import { Divider, Input, Space, Form, Empty, Select } from "antd";
 import { ChangeEvent, Fragment, useState } from "react";
 import { BookSearch } from "../api/base";
 import BookList from "../components/book-list";
+const { Option } = Select;
 
 const SearchPage = () => {
-  const [query, setQuery] = useState({
-    term: "intitle",
-    search: "",
-  });
+  const [searchTerm, setSearchTerm] = useState("intitle");
+  const [searchValue, setSearchValue] = useState("");
 
-  const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery({ term: query.term, search: event.target.value });
+  const { data, error } = BookSearch(searchValue, searchTerm);
+
+  const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
   };
+
   const handleTermChange = (event: string) => {
-    setQuery({ term: event, search: query.search });
+    setSearchTerm(event);
   };
-
-  const { data, error } = BookSearch(query);
-
-  const { Option } = Select;
-  const searchTerms = (
-    <Select onChange={e => handleTermChange(e)} defaultValue="intitle">
-      <Option value="intitle">Title</Option>
-      <Option value="inauthor">Author</Option>
-      <Option value="subject">Genre</Option>
-    </Select>
-  );
 
   return (
     <Fragment>
@@ -40,11 +31,20 @@ const SearchPage = () => {
             help={error ? error.message : undefined}
           >
             <Input
-              addonBefore={searchTerms}
+              addonBefore={
+                <Select
+                  onChange={e => handleTermChange(e)}
+                  defaultValue="intitle"
+                >
+                  <Option value="intitle">Title</Option>
+                  <Option value="inauthor">Author</Option>
+                  <Option value="subject">Genre</Option>
+                </Select>
+              }
               placeholder="start typing to search..."
               size="large"
               style={{ minWidth: "50vw", textAlign: "center" }}
-              onChange={e => handleQueryChange(e)}
+              onChange={e => handleValueChange(e)}
             />
           </Form.Item>
         </Form>
