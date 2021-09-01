@@ -1,16 +1,31 @@
-import { Divider, Input, Space, Form, Empty } from "antd";
+import { Divider, Input, Space, Form, Empty, Select } from "antd";
 import { ChangeEvent, Fragment, useState } from "react";
 import { BookSearch } from "../api/base";
 import BookList from "../components/book-list";
 
 const SearchPage = () => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState({
+    term: "intitle",
+    search: "",
+  });
 
   const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
+    setQuery({ term: query.term, search: event.target.value });
+  };
+  const handleTermChange = (event: string) => {
+    setQuery({ term: event, search: query.search });
   };
 
-  const { data, error } = BookSearch(query);
+  const { data, error } = BookSearch(`${query.search}+${query.term}`);
+
+  const { Option } = Select;
+  const searchTerms = (
+    <Select onChange={e => handleTermChange(e)} defaultValue="intitle">
+      <Option value="intitle">Title</Option>
+      <Option value="inauthor">Author</Option>
+      <Option value="subject">Genre</Option>
+    </Select>
+  );
 
   return (
     <Fragment>
@@ -25,6 +40,7 @@ const SearchPage = () => {
             help={error ? error.message : undefined}
           >
             <Input
+              addonBefore={searchTerms}
               placeholder="start typing to search..."
               size="large"
               style={{ minWidth: "75vh", textAlign: "center" }}
