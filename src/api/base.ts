@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { IError } from "./search.types";
+import { IError, ISearchResults } from "./base.types";
 
 const apiBase = "https://www.googleapis.com/books/v1/volumes?q=";
 
 export const BookSearch = (query: string) => {
-  const [data, setData] = useState();
+  const [data, setData] = useState<ISearchResults>();
   const [error, setError] = useState<IError>();
   const [loading, setLoading] = useState(true);
 

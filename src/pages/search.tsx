@@ -1,9 +1,9 @@
-import { Divider, Input, Space } from "antd";
+import { Divider, Input, Space, Form } from "antd";
 import { ChangeEvent, Fragment, useState } from "react";
-import { BookSearch } from "../api/search";
+import { BookSearch } from "../api/base";
+import BookList from "../components/book-list";
 
 const SearchPage = () => {
-  const { Search } = Input;
   const [query, setQuery] = useState("");
 
   const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -19,16 +19,23 @@ const SearchPage = () => {
         direction="horizontal"
         style={{ width: "100%", justifyContent: "center" }}
       >
-        <Search
-          placeholder="search text"
-          // enterButton="Search"
-          size="large"
-          style={{ minWidth: "75vh" }}
-          // loading={loading}
-          onChange={e => handleQueryChange(e)}
-        />
+        <Form style={{}}>
+          <Form.Item
+            hasFeedback
+            validateStatus={error ? "error" : undefined}
+            help={error ? error.message : undefined}
+          >
+            <Input
+              placeholder="start typing to search..."
+              size="large"
+              style={{ minWidth: "75vh", textAlign: "center" }}
+              onChange={e => handleQueryChange(e)}
+            />
+          </Form.Item>
+        </Form>
       </Space>
-      <Divider />
+      <Divider style={{ margin: 0 }} />
+      <BookList books={data?.items} />
     </Fragment>
   );
 };
