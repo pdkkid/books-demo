@@ -14,7 +14,7 @@ export const BookSearch = (query: string) => {
     }
     (async () => {
       try {
-        const res = await fetch(`${apiBase}${query}`);
+        const res = await fetch(`${apiBase}${query}&maxResults=40`);
         const resJson = await res.json();
         setData(resJson);
       } catch (err) {

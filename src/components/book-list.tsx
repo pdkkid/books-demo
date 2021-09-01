@@ -17,6 +17,7 @@ const BookList = ({ books }: BookListProps) => {
       {books?.map((book, i) => {
         return (
           <Card
+            key={i}
             style={{ width: 225 }}
             hoverable
             cover={
