@@ -1,7 +1,5 @@
-import { Fragment } from "react";
 import { IBook } from "../api/base.types";
-import { Card } from "antd";
-
+import { Card, Space } from "antd";
 type BookListProps = {
   books: IBook[] | undefined;
 };
@@ -10,26 +8,36 @@ const BookList = ({ books }: BookListProps) => {
   const { Meta } = Card;
 
   return (
-    <Fragment>
-      {books?.map((book, index) => {
+    <Space
+      size={[12, 16]}
+      wrap
+      align="start"
+      style={{ justifyContent: "space-evenly" }}
+    >
+      {books?.map((book, i) => {
         return (
           <Card
-            style={{ width: 300 }}
+            style={{ width: 225 }}
+            hoverable
             cover={
               <img
+                height={300}
                 alt={book.volumeInfo.title}
-                src={book.volumeInfo.imageLinks.smallThumbnail}
+                src={
+                  book.volumeInfo.imageLinks?.smallThumbnail ||
+                  "https://i.ibb.co/LxkmGDX/download.png"
+                }
               />
             }
           >
             <Meta
               title={book.volumeInfo.title}
-              description={book.volumeInfo.description}
+              description={book.volumeInfo.authors}
             />
           </Card>
         );
       })}
-    </Fragment>
+    </Space>
   );
 };
 

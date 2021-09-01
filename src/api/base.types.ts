@@ -15,8 +15,8 @@ export interface IBook {
     authors: string[];
     description: string;
     imageLinks: {
-      smallThumbnail: string;
-      thumbnail: string;
+      smallThumbnail?: string;
+      thumbnail?: string;
     };
   };
 }

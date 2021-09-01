@@ -11,7 +11,6 @@ const SearchPage = () => {
   };
 
   const { data, error } = BookSearch(query);
-  console.log(data);
 
   return (
     <Fragment>
