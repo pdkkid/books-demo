@@ -16,7 +16,7 @@ const SearchPage = () => {
     setQuery({ term: event, search: query.search });
   };
 
-  const { data, error } = BookSearch(`${query.search}+${query.term}`);
+  const { data, error } = BookSearch(query);
 
   const { Option } = Select;
   const searchTerms = (
