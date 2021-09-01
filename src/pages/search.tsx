@@ -1,4 +1,4 @@
-import { Divider, Input, Space, Form } from "antd";
+import { Divider, Input, Space, Form, Empty } from "antd";
 import { ChangeEvent, Fragment, useState } from "react";
 import { BookSearch } from "../api/base";
 import BookList from "../components/book-list";
@@ -34,6 +34,7 @@ const SearchPage = () => {
         </Form>
       </Space>
       <Divider style={{ margin: 0 }} />
+      {!data && <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
       <BookList books={data?.items} />
     </Fragment>
   );

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { IError, ISearchResults } from "./base.types";
 
-const apiBase = "https://www.googleapis.com/books/v1/volumes?q=";
+const apiBase = "https://www.googleapis.com/books/v1/volumes";
 
 export const BookSearch = (query: string) => {
   const [data, setData] = useState<ISearchResults>();
@@ -14,7 +14,7 @@ export const BookSearch = (query: string) => {
     }
     (async () => {
       try {
-        const res = await fetch(`${apiBase}${query}&maxResults=40`);
+        const res = await fetch(`${apiBase}?q=${query}&maxResults=40`);
         const resJson = await res.json();
         setData(resJson);
       } catch (err) {
