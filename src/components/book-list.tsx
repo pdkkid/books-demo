@@ -1,7 +1,9 @@
 import { IBook } from "../api/base.types";
 import { Card, Space } from "antd";
-import { HeartOutlined } from "@ant-design/icons";
 import Truncate from "react-truncate";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+import { Favorited } from "./book-favorite";
+import { useEffect, useRef } from "react";
 const { Meta } = Card;
 
 const BookList = ({ books }: { books: IBook[] | undefined }) => {
@@ -16,7 +18,13 @@ const BookList = ({ books }: { books: IBook[] | undefined }) => {
         return (
           <Card
             key={book.id}
-            extra={<HeartOutlined onClick={() => {}} />}
+            extra={
+              Favorited(book) ? (
+                <HeartFilled onClick={handleDelFavBook} />
+              ) : (
+                <HeartOutlined onClick={handleAddFavBook} />
+              )
+            }
             title={<Truncate lines={2}>{book.volumeInfo.title}</Truncate>}
             headStyle={{ textAlign: "center" }}
             style={{ width: 225, flex: 1 }}
