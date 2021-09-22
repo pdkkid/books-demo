@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { Link, Route, useLocation } from "react-router-dom";
-import { Layout, Menu, Tooltip } from "antd";
+import { BackTop, Layout, Menu, Tooltip } from "antd";
 import HomePage from "./pages/home";
 import SearchPage from "./pages/search";
 import ProfilePage from "./pages/profile";
@@ -76,6 +76,7 @@ function App() {
             )}
           </Menu>
         </Header>
+        <BackTop />
         <Content
           style={{
             marginTop: "24px",
