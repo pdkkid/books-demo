@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Link, Route, useLocation } from "react-router-dom";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Tooltip } from "antd";
 import HomePage from "./pages/home";
 import SearchPage from "./pages/search";
 import ProfilePage from "./pages/profile";
+import { LoginOutlined, LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { AppState, AppContextType, AppContext } from "./app-context";
 import "antd/dist/antd.css";
 const { Header, Footer, Content } = Layout;
@@ -12,14 +13,15 @@ function App() {
   const location = useLocation();
 
   const [app, setAppState] = useState<AppState>({
+    name: "My Dude",
     loggedIn: false,
     favBooks: [],
   });
 
   const context: AppContextType = { app, setAppState };
 
-  const handleLogin = () => {
-    setAppState({ ...app, loggedIn: true });
+  const setLoggedIn = (login: boolean) => {
+    setAppState({ ...app, loggedIn: login });
   };
 
   return (
@@ -41,18 +43,36 @@ function App() {
               <Link to="/search" />
             </Menu.Item>
             {app.loggedIn ? (
-              <Menu.Item key="/profile" style={{ marginLeft: "auto" }}>
-                <span>My Profile</span>
-                <Link to="/profile" />
-              </Menu.Item>
+              <Fragment>
+                <Tooltip placement="bottom" title="My Profile">
+                  <Menu.Item
+                    key="/profile"
+                    style={{ marginLeft: "auto", padding: "0 15px" }}
+                  >
+                    <UserOutlined style={{ fontSize: "1.2rem" }} />
+                    <Link to="/profile" />
+                  </Menu.Item>
+                </Tooltip>
+                <Tooltip placement="bottom" title="Logout">
+                  <Menu.Item
+                    key="logout"
+                    onClick={() => setLoggedIn(false)}
+                    style={{ padding: "0 15px" }}
+                  >
+                    <LogoutOutlined style={{ fontSize: "1.2rem" }} />
+                  </Menu.Item>
+                </Tooltip>
+              </Fragment>
             ) : (
-              <Menu.Item
-                key="login"
-                onClick={handleLogin}
-                style={{ marginLeft: "auto" }}
-              >
-                <span>Login</span>
-              </Menu.Item>
+              <Tooltip placement="bottom" title="Login">
+                <Menu.Item
+                  key="login"
+                  onClick={() => setLoggedIn(true)}
+                  style={{ marginLeft: "auto", padding: "0 15px" }}
+                >
+                  <LoginOutlined style={{ fontSize: "1.2rem" }} />
+                </Menu.Item>
+              </Tooltip>
             )}
           </Menu>
         </Header>
