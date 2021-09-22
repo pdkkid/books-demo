@@ -3,10 +3,19 @@ import { Card, Space } from "antd";
 import Truncate from "react-truncate";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Favorited } from "./book-favorite";
-import { useEffect, useRef } from "react";
+import { useContext } from "react";
+import { AppContext } from "../app-context";
 const { Meta } = Card;
 
 const BookList = ({ books }: { books: IBook[] | undefined }) => {
+  const { app, setAppState } = useContext(AppContext);
+
+  const handleFavoriteToggle = (book: IBook) => {
+    app.favBooks.includes(book)
+      ? setAppState({ ...app, favBooks: app.favBooks.filter(n => n !== book) })
+      : setAppState({ ...app, favBooks: app.favBooks.concat(book) });
+  };
+
   return (
     <Space
       size={[12, 16]}
@@ -19,11 +28,13 @@ const BookList = ({ books }: { books: IBook[] | undefined }) => {
           <Card
             key={book.id}
             extra={
-              Favorited(book) ? (
-                <HeartFilled onClick={handleDelFavBook} />
-              ) : (
-                <HeartOutlined onClick={handleAddFavBook} />
-              )
+              app.loggedIn ? (
+                Favorited(book) ? (
+                  <HeartFilled onClick={() => handleFavoriteToggle(book)} />
+                ) : (
+                  <HeartOutlined onClick={() => handleFavoriteToggle(book)} />
+                )
+              ) : undefined
             }
             title={<Truncate lines={2}>{book.volumeInfo.title}</Truncate>}
             headStyle={{ textAlign: "center" }}
