@@ -28,13 +28,12 @@ const BookList = ({ books }: { books: IBook[] | undefined }) => {
           <Card
             key={book.id}
             extra={
-              app.loggedIn ? (
-                Favorited(book) ? (
-                  <HeartFilled onClick={() => handleFavoriteToggle(book)} />
-                ) : (
-                  <HeartOutlined onClick={() => handleFavoriteToggle(book)} />
-                )
-              ) : undefined
+              app.loggedIn &&
+              (Favorited(book) ? (
+                <HeartFilled onClick={() => handleFavoriteToggle(book)} />
+              ) : (
+                <HeartOutlined onClick={() => handleFavoriteToggle(book)} />
+              ))
             }
             title={<Truncate lines={2}>{book.volumeInfo.title}</Truncate>}
             headStyle={{ textAlign: "center" }}
