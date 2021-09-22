@@ -44,7 +44,11 @@ function App() {
             </Menu.Item>
             {app.loggedIn ? (
               <Fragment>
-                <Tooltip placement="bottom" title="My Profile">
+                <Tooltip
+                  placement="bottom"
+                  title="My Profile"
+                  destroyTooltipOnHide
+                >
                   <Menu.Item
                     key="/profile"
                     style={{ marginLeft: "auto", padding: "0 15px" }}
@@ -53,7 +57,7 @@ function App() {
                     <Link to="/profile" />
                   </Menu.Item>
                 </Tooltip>
-                <Tooltip placement="bottom" title="Logout">
+                <Tooltip placement="bottom" title="Logout" destroyTooltipOnHide>
                   <Menu.Item
                     key="logout"
                     onClick={() => setLoggedIn(false)}
@@ -64,7 +68,7 @@ function App() {
                 </Tooltip>
               </Fragment>
             ) : (
-              <Tooltip placement="bottom" title="Login">
+              <Tooltip placement="bottom" title="Login" destroyTooltipOnHide>
                 <Menu.Item
                   key="login"
                   onClick={() => setLoggedIn(true)}
