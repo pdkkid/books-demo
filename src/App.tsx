@@ -91,7 +91,9 @@ function App() {
           <Route path="/profile" component={ProfilePage} />
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          <a href="https://github.com/pdkkid">Austin Terry ©2021</a>
+          <a href="https://github.com/pdkkid">
+            Austin Terry ©{new Date().getFullYear()}
+          </a>
         </Footer>
       </Layout>
     </AppContext.Provider>
