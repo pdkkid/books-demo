@@ -27,28 +27,44 @@ const SearchPage = () => {
         direction="horizontal"
         style={{ width: "100%", justifyContent: "center" }}
       >
-        <Form style={{}}>
+        <Form>
           <Form.Item
-            hasFeedback
-            validateStatus={error ? "error" : undefined}
-            help={error ? error.message : undefined}
+            style={{ marginBottom: 0, width: "60vw", whiteSpace: "nowrap" }}
           >
-            <Input
-              addonBefore={
-                <Select
-                  onChange={e => handleTermChange(e)}
-                  defaultValue="intitle"
-                >
-                  <Option value="intitle">Title</Option>
-                  <Option value="inauthor">Author</Option>
-                  <Option value="subject">Genre</Option>
-                </Select>
-              }
-              placeholder="start typing to search..."
-              size="large"
-              style={{ minWidth: "50vw", textAlign: "center" }}
-              onChange={e => handleValueChange(e)}
-            />
+            <Form.Item
+              hasFeedback
+              validateStatus={error ? "error" : undefined}
+              help={error ? error.message : undefined}
+              style={{
+                display: "inline-block",
+                width: "calc(25% - 2px)",
+                minWidth: "fit-content",
+              }}
+            >
+              <Select
+                onChange={e => handleTermChange(e)}
+                defaultValue="intitle"
+                size="large"
+              >
+                <Option value="intitle">Title</Option>
+                <Option value="inauthor">Author</Option>
+                <Option value="subject">Genre</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item
+              style={{
+                display: "inline-block",
+                width: "calc(75% - 2px)",
+                margin: "0 8px",
+              }}
+            >
+              <Input
+                placeholder="start typing to search..."
+                size="large"
+                style={{ minWidth: "50%", textAlign: "center" }}
+                onChange={e => handleValueChange(e)}
+              />
+            </Form.Item>
           </Form.Item>
         </Form>
       </Space>
